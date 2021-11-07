@@ -1,0 +1,48 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "Cell",
+"language": "GDScript",
+"path": "res://src/Cell.gd"
+}, {
+"base": "Reference",
+"class": "Grid",
+"language": "GDScript",
+"path": "res://src/Grid.gd"
+} ]
+_global_script_class_icons={
+"Cell": "",
+"Grid": ""
+}
+
+[application]
+
+config/name="Maze - Binary Tree Isometric"
+run/main_scene="res://src/scenes/Main.tscn"
+config/icon="res://images/icon.png"
+
+[autoload]
+
+Maze="*res://src/Maze.gd"
+
+[display]
+
+window/size/width=1600
+window/size/height=1024
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://misc/default_env.tres"

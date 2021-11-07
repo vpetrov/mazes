@@ -69,7 +69,7 @@ func clearRow(row:int) -> void:
 	assert(row < nrows)
 	for col in range(ncols):
 		cells[row][col] = Cell.new(row, col, 0)
-
+		
 func _to_string():
 	for row in range(nrows):
 		print(row(row))

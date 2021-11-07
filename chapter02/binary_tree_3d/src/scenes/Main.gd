@@ -23,8 +23,8 @@ const tiles = {
 
 # main()
 func _ready():
-	randomize()
-	var grid = Maze.binary_tree(16,16)
+	#randomize()
+	var grid = Maze.binary_tree(3,3)
 	print(grid)
 	
 	var tileset: TileSet = $TileMap.tile_set
