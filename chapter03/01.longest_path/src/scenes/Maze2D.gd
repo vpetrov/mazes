@@ -71,6 +71,8 @@ func onGridClick(grid:DistanceGrid, row:int, col:int) -> void:
     tankPath = shortestDistances.toList()
     currentPathIndex = -1
     $Tank.stop()
+    
+    drawTankPath(tankPath)
     moveTankToNextCell()
     
 func moveTankToNextCell():    
@@ -115,6 +117,40 @@ func getNextPathIndex() -> int:
         newIndex += 1
         
     return newIndex   
+    
+func drawTankPath(path:Array) -> void:
+    
+    $ArrowsTileMap.clear()
+    
+    for i in range(path.size()):
+        var cell = path[i]
+        var tileRotation:Array
+        var tileId:int
+
+        if i == path.size() - 1:
+            tileId = $ArrowsTileMap.tile_set.find_tile_by_name("barrel")
+            tileRotation = [false, false, false]        
+        elif i == 0:
+            tileId = $ArrowsTileMap.tile_set.find_tile_by_name("barrel_blue")
+            tileRotation = cellToArrowRotation(cell, path[i + 1])
+        else:
+            tileId = $ArrowsTileMap.tile_set.find_tile_by_name("arrow_gray")
+            tileRotation = cellToArrowRotation(cell, path[i + 1])
+
+        if tileRotation.size() == 0:
+            continue
+            
+        $ArrowsTileMap.set_cell(cell.col, cell.row, tileId, tileRotation[0], tileRotation[1], tileRotation[2])
+        
+func cellToArrowRotation(currentCell:Cell, nextCell:Cell) -> Array:
+    var nextMove := currentCell.linkDirection(nextCell)
+    match nextMove:
+        Cell.LINK_NORTH: return [false, false, false]
+        Cell.LINK_EAST: return [true, false, true]
+        Cell.LINK_SOUTH: return [false, true, false]
+        Cell.LINK_WEST: return [false, false, true]
+        
+    return []
         
 func teleportTankToCell(row:int, col:int) -> void:
     var location = getCellCenter(row, col)
