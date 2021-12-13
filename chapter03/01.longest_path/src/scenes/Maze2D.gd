@@ -64,14 +64,23 @@ func onGridClick(grid:DistanceGrid, row:int, col:int) -> void:
     var tankCell := grid.cell(tankCellCoord.y, tankCellCoord.x)
     grid.setStartCell(tankCell)
     
-    var cell = grid.cell(row, col)
-    var shortestDistances = grid.pathTo(cell)
-    var maxD = shortestDistances.farthest()
+    # calculate the farthest cell from the tank's current cell
+    var farthestCellEnd = grid.distances.farthest()
+    grid.setStartCell(farthestCellEnd)
     
-    tankPath = shortestDistances.toList()
-    currentPathIndex = -1
+    # calculate the farthest cell from the farthest cell
+    var farthestCellStart = grid.distances.farthest()
+    grid.setStartCell(farthestCellStart)
+    
+    # move the tank to the start of the longest path
     $Tank.stop()
+    teleportTankToCell(farthestCellStart.row, farthestCellStart.col)
     
+    # figure out the tank path
+    var longestPath = grid.pathTo(farthestCellEnd)
+    tankPath = longestPath.toList()
+    currentPathIndex = -1
+
     drawTankPath(tankPath)
     moveTankToNextCell()
     
