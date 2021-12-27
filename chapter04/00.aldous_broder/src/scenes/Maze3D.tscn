@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/scenes/Maze3D.gd" type="Script" id=1]
+[ext_resource path="res://images/textures/checkerboard.png" type="Texture" id=2]
+
+[sub_resource type="SpatialMaterial" id=14]
+albedo_texture = ExtResource( 2 )
+
+[sub_resource type="SpatialMaterial" id=9]
+
+[sub_resource type="PlaneMesh" id=10]
+material = SubResource( 9 )
+size = Vector2( 100, 100 )
+
+[node name="Spatial" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1682 )
+script = ExtResource( 1 )
+
+[node name="Maze" type="MeshInstance" parent="."]
+material_override = SubResource( 14 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -0.618038, 0.357356, -0.700233, 0, 0.890713, 0.454566, 0.786148, 0.280939, -0.550495, -0.3, 2, 3 )
+
+[node name="Ground" type="MeshInstance" parent="."]
+mesh = SubResource( 10 )
+material/0 = null
