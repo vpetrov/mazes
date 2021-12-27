@@ -16,15 +16,16 @@ signal show_distances
 
 enum MazeAlgorithm {
     SIDEWINDER,
-    BINARY_TREE
+    BINARY_TREE,
+    ALDOUS_BRODER
 }
 
-export var rows:int = 16
-export var columns:int = 16
+export var rows:int = 64
+export var columns:int = 64
 
 var grid = null
 var currentScene = null
-var currentAlgorithm = MazeAlgorithm.BINARY_TREE
+var currentAlgorithm = MazeAlgorithm.SIDEWINDER
 var showDistances := true
 
 const mazeOptions = {
@@ -35,7 +36,8 @@ const mazeOptions = {
 
 const algorithmOptions = {
     "Sidewinder": 0,
-    "Binary Tree": 1
+    "Binary Tree": 1,
+    "Aldous-Broder": 2
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -86,12 +88,14 @@ func _on_AlgorithmSelect_item_selected(index) -> void:
     match selectedAlgorithm:
         0: currentAlgorithm = MazeAlgorithm.SIDEWINDER
         1: currentAlgorithm = MazeAlgorithm.BINARY_TREE
+        2: currentAlgorithm = MazeAlgorithm.ALDOUS_BRODER
     switchAlgorithm(currentAlgorithm)
     
 func switchAlgorithm(algorithm) -> void:
     match algorithm:
         MazeAlgorithm.SIDEWINDER: switchToSidewinderMaze()
         MazeAlgorithm.BINARY_TREE: switchToBinaryTreeMaze()
+        MazeAlgorithm.ALDOUS_BRODER: switchToAldousBroderMaze()
 
 func switchToBinaryTreeMaze() -> void:
     grid = DistanceGrid.new(rows, columns)
@@ -100,9 +104,16 @@ func switchToBinaryTreeMaze() -> void:
     
     emit_signal("change_grid", grid)
     
-func switchToSidewinderMaze():
+func switchToSidewinderMaze() -> void:
     grid = DistanceGrid.new(rows, columns)
     Maze.sidewinder(grid)
+    grid.setStartCell(grid.cell(0,0))
+    
+    emit_signal("change_grid", grid)
+    
+func switchToAldousBroderMaze() -> void:
+    grid = DistanceGrid.new(rows, columns)
+    Maze.aldousBroder(grid)
     grid.setStartCell(grid.cell(0,0))
     
     emit_signal("change_grid", grid)

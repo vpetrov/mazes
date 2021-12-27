@@ -39,3 +39,19 @@ func sidewinder(grid:Grid) -> void:
                 run.clear()
             else:
                 cell.link(cell.east)
+
+# Populates grid neighbors using the Aldous-Broder algorithm
+func aldousBroder(grid:Grid) -> void:
+    var cell = grid.random_cell()
+    var unvisited = grid.nrows * grid.ncols - 1
+    
+    while unvisited > 0:
+        var neighbors = cell.neighbours()
+        var random_index := rand_range(0, neighbors.size())
+        var neighbor:Cell= neighbors[random_index]
+        
+        if neighbor.links().empty():
+            cell.link(neighbor)
+            unvisited -= 1
+        
+        cell = neighbor
