@@ -18,7 +18,8 @@ enum MazeAlgorithm {
     SIDEWINDER,
     BINARY_TREE,
     ALDOUS_BRODER,
-    WILSON
+    WILSON,
+    HUNT_AND_KILL
 }
 
 export var rows:int = 64
@@ -39,7 +40,8 @@ const algorithmOptions = {
     "Sidewinder": 0,
     "Binary Tree": 1,
     "Aldous-Broder": 2,
-    "Wilson": 3
+    "Wilson": 3,
+    "Hunt and Kill": 4
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -92,6 +94,7 @@ func _on_AlgorithmSelect_item_selected(index) -> void:
         1: currentAlgorithm = MazeAlgorithm.BINARY_TREE
         2: currentAlgorithm = MazeAlgorithm.ALDOUS_BRODER
         3: currentAlgorithm = MazeAlgorithm.WILSON
+        4: currentAlgorithm = MazeAlgorithm.HUNT_AND_KILL
     switchAlgorithm(currentAlgorithm)
     
 func switchAlgorithm(algorithm) -> void:
@@ -100,6 +103,7 @@ func switchAlgorithm(algorithm) -> void:
         MazeAlgorithm.BINARY_TREE: switchToBinaryTreeMaze()
         MazeAlgorithm.ALDOUS_BRODER: switchToAldousBroderMaze()
         MazeAlgorithm.WILSON: switchToWilsonMaze()
+        MazeAlgorithm.HUNT_AND_KILL: switchToHuntAndKillMaze()
         
 
 func switchToBinaryTreeMaze() -> void:
@@ -126,6 +130,13 @@ func switchToAldousBroderMaze() -> void:
 func switchToWilsonMaze() -> void:
     grid = DistanceGrid.new(rows, columns)
     Maze.wilson(grid)
+    grid.setStartCell(grid.cell(0,0))
+    
+    emit_signal("change_grid", grid)
+    
+func switchToHuntAndKillMaze() -> void:
+    grid = DistanceGrid.new(rows, columns)
+    Maze.huntKill(grid)
     grid.setStartCell(grid.cell(0,0))
     
     emit_signal("change_grid", grid)

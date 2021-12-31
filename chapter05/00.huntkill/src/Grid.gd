@@ -59,7 +59,7 @@ func random_cell() -> Cell:
     var col = rand_range(0.0, ncols)
     return cell(row, col)
     
-func random_neighbor(cell:Cell) -> Cell:
+func neighbors(cell:Cell) -> Array:
     var neighbors = []
     
     # north
@@ -74,8 +74,12 @@ func random_neighbor(cell:Cell) -> Cell:
     # west
     if cell.col > 0:
         neighbors.append(self.cell(cell.row, cell.col - 1))
+        
+    return neighbors
     
-    # wtf
+    
+func random_neighbor(cell:Cell) -> Cell:
+    var neighbors = neighbors(cell)
     if neighbors.empty():
         return null
         

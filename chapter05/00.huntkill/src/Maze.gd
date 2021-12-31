@@ -94,5 +94,45 @@ func wilson(grid:Grid) -> void:
             unvisited.erase(first_cell)
             
         
+func huntKill(grid:Grid) -> void:
+    var cell = grid.random_cell()
     
-    
+    while cell != null:
+        var all_neighbors = grid.neighbors(cell)
+        var unvisited_neighbors = []
+        
+        # select unvisited neighbors
+        for neighbor in all_neighbors:
+            if neighbor.links().empty():
+                unvisited_neighbors.append(neighbor)
+            
+        if unvisited_neighbors.empty():
+            cell = null
+            var done := false
+            
+            # iterate over the entire grid - wtf.
+            for row in range(grid.nrows):
+                if done:
+                    break
+                for col in range(grid.ncols):
+                    if done:
+                        break
+                    var grid_cell = grid.cell(row, col)
+                    var all_neighbors2 = grid.neighbors(grid_cell)
+                    var visited_neighbors = []
+                    
+                    # remove neighbors without links
+                    for neighbor in all_neighbors2:
+                        if not neighbor.links().empty():
+                            visited_neighbors.append(neighbor)
+                            
+                    if grid_cell.links().empty() and !visited_neighbors.empty():
+                        cell = grid_cell
+                        var random_neighbor = Random.element(visited_neighbors)
+                        cell.link(random_neighbor)
+                        done = true
+        else:
+            var neighbor = Random.element(unvisited_neighbors)
+            cell.link(neighbor)
+            cell = neighbor
+            

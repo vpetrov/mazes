@@ -57,6 +57,7 @@ config/icon="res://images/icon.png"
 [autoload]
 
 Maze="*res://src/Maze.gd"
+Random="*res://src/Random.gd"
 
 [display]
 
