@@ -20,6 +20,9 @@ func _input(event) -> void:
     
 func onGridChanged(grid:DistanceGrid) -> void:
     changeGrid(grid)
+    
+func onShowDeadEnds(show:bool) -> void:
+    colorTileMap.setShowDeadEnds(show)
 
 func changeGrid(grid:DistanceGrid) -> void:
     self.grid = grid
@@ -39,4 +42,3 @@ func positionToCellCoord(pos:Vector2) -> Vector2:
 func onGridClick(grid:Grid, row:int, col:int) -> void:
     grid.setStartCell(grid.cell(row, col))
     updateCurrentGrid()
-

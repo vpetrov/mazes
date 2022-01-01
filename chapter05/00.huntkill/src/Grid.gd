@@ -4,6 +4,7 @@ class_name Grid
 
 var ncols := 0
 var nrows := 0
+var dead_ends = null
 
 const cells := Array()
 
@@ -100,3 +101,18 @@ func clearRow(row:int) -> void:
 func _to_string():
     for row in range(nrows):
         print(row(row))
+
+func deadEnds() -> Array:
+    # cache
+    if dead_ends != null:
+        return dead_ends
+        
+    dead_ends = []
+    
+    for row in range(nrows):
+        for col in range(ncols):
+            var cell = cell(row, col)
+            if cell.links().size() == 1:
+                dead_ends.append(cell)
+    
+    return dead_ends

@@ -110,6 +110,33 @@ margin_right = 469.0
 margin_bottom = 24.0
 text = "Distances"
 
+[node name="VSeparator2" type="VSeparator" parent="PanelContainer/MarginContainer/HBoxContainer"]
+margin_left = 473.0
+margin_right = 477.0
+margin_bottom = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DeadEndsLabel" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
+margin_left = 481.0
+margin_top = 5.0
+margin_right = 565.0
+margin_bottom = 19.0
+text = "Dead ends: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DeadEndsCheckbox" type="CheckBox" parent="PanelContainer/MarginContainer/HBoxContainer"]
+margin_left = 569.0
+margin_right = 630.0
+margin_bottom = 24.0
+text = "Show"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
 margin_top = 52.0
 margin_right = 1024.0
@@ -130,3 +157,4 @@ render_target_update_mode = 3
 [connection signal="item_selected" from="PanelContainer/MarginContainer/HBoxContainer/AlgorithmSelect" to="." method="_on_AlgorithmSelect_item_selected"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/NewMazeButton" to="." method="_on_NewMazeButton_pressed"]
 [connection signal="toggled" from="PanelContainer/MarginContainer/HBoxContainer/DistancesCheckbox" to="." method="_on_DistancesCheckbox_toggled"]
+[connection signal="toggled" from="PanelContainer/MarginContainer/HBoxContainer/DeadEndsCheckbox" to="." method="_on_DeadEndsCheckbox_toggled"]

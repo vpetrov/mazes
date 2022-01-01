@@ -10,9 +10,11 @@ onready var mazeSelect = $PanelContainer/MarginContainer/HBoxContainer/ViewSelec
 onready var algorithmSelect = $PanelContainer/MarginContainer/HBoxContainer/AlgorithmSelect
 onready var rowsTextEdit = $PanelContainer/MarginContainer/HBoxContainer/RowsTextEdit
 onready var columnsTextEdit = $PanelContainer/MarginContainer/HBoxContainer/ColumnsTextEdit
+onready var deadEndsLabel = $PanelContainer/MarginContainer/HBoxContainer/DeadEndsLabel
 
 signal change_grid
 signal show_distances
+signal show_dead_ends
 
 enum MazeAlgorithm {
     SIDEWINDER,
@@ -50,6 +52,7 @@ func _ready() -> void:
     grid = DistanceGrid.new(rows, columns)
     Maze.sidewinder(grid)
     grid.setStartCell(grid.cell(0,0))
+    updateDeadEnds()
     
     initDisplayOptions()
     initAlgorithmOptions()
@@ -84,6 +87,7 @@ func switchViewportScene(scene:PackedScene) -> void:
     currentScene.grid = grid
     connect("change_grid", currentScene, "onGridChanged")
     connect("show_distances", currentScene, "onShowDistancesChanged")
+    connect("show_dead_ends", currentScene, "onShowDeadEnds")
     viewport2d.add_child(currentScene)
 
 # Called when the user picks another maze algorithm
@@ -104,6 +108,7 @@ func switchAlgorithm(algorithm) -> void:
         MazeAlgorithm.ALDOUS_BRODER: switchToAldousBroderMaze()
         MazeAlgorithm.WILSON: switchToWilsonMaze()
         MazeAlgorithm.HUNT_AND_KILL: switchToHuntAndKillMaze()
+    updateDeadEnds()
         
 
 func switchToBinaryTreeMaze() -> void:
@@ -144,6 +149,7 @@ func switchToHuntAndKillMaze() -> void:
 func _on_NewMazeButton_pressed() -> void:
     updateMazeSize()
     switchAlgorithm(currentAlgorithm)
+    updateDeadEnds()
     
 func updateMazeSize() -> void:
     self.rows = rowsTextEdit.text.to_int()
@@ -154,3 +160,10 @@ func _on_DistancesCheckbox_toggled(button_pressed: bool) -> void:
     showDistances = button_pressed
     emit_signal("show_distances", showDistances)
     pass # Replace with function body.
+    
+func updateDeadEnds() -> void:
+    var ndeadEnds = grid.deadEnds().size()
+    deadEndsLabel.text = "Dead Ends: " + str(ndeadEnds)
+
+func _on_DeadEndsCheckbox_toggled(button_pressed: bool) -> void:
+    emit_signal("show_dead_ends", button_pressed)
