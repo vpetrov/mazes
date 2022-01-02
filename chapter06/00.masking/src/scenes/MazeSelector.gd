@@ -53,6 +53,7 @@ const algorithmOptions = {
 func _ready() -> void:
     randomize()
     grid = DistanceGrid.new(rows, columns)
+    grid.init()
     var start_cell = grid.cell(0,0)
     Maze.recursiveBacktracker(grid, start_cell)
     grid.setStartCell(start_cell)
@@ -120,6 +121,7 @@ func switchAlgorithm(algorithm) -> void:
 
 func switchToBinaryTreeMaze(start_row:int, start_col:int) -> void:
     grid = DistanceGrid.new(rows, columns)
+    grid.init()
     var start_cell = grid.cell(start_row, start_col)
     Maze.binary_tree(grid, start_cell)
     grid.setStartCell(start_cell)
@@ -128,6 +130,7 @@ func switchToBinaryTreeMaze(start_row:int, start_col:int) -> void:
     
 func switchToSidewinderMaze(start_row:int, start_col:int) -> void:
     grid = DistanceGrid.new(rows, columns)
+    grid.init()
     var start_cell = grid.cell(start_row, start_col)
     Maze.sidewinder(grid, start_cell)
     grid.setStartCell(start_cell)
@@ -136,6 +139,7 @@ func switchToSidewinderMaze(start_row:int, start_col:int) -> void:
     
 func switchToAldousBroderMaze(start_row:int, start_col:int) -> void:
     grid = DistanceGrid.new(rows, columns)
+    grid.init()
     var start_cell = grid.cell(start_row, start_col)
     Maze.aldousBroder(grid, start_cell)
     grid.setStartCell(start_cell)
@@ -144,6 +148,7 @@ func switchToAldousBroderMaze(start_row:int, start_col:int) -> void:
     
 func switchToWilsonMaze(start_row:int, start_col:int) -> void:
     grid = DistanceGrid.new(rows, columns)
+    grid.init()
     var start_cell = grid.cell(start_row, start_col)
     Maze.wilson(grid, start_cell)
     grid.setStartCell(start_cell)
@@ -152,6 +157,7 @@ func switchToWilsonMaze(start_row:int, start_col:int) -> void:
     
 func switchToHuntAndKillMaze(start_row:int, start_col:int) -> void:
     grid = DistanceGrid.new(rows, columns)
+    grid.init()
     var start_cell = grid.cell(start_row, start_col)
     Maze.huntKill(grid, start_cell)
     grid.setStartCell(start_cell)
@@ -159,8 +165,11 @@ func switchToHuntAndKillMaze(start_row:int, start_col:int) -> void:
     emit_signal("change_grid", grid)
     
 func switchToRecursiveBacktracker(start_row:int, start_col:int) -> void:
-    grid = DistanceGrid.new(rows, columns)
-    var start_cell = grid.cell(start_row, start_col)
+    var mask = MaskFactory.fromTextFile("res://masks/mask.tres")
+    grid = MaskedDistanceGrid.new(mask)
+    grid.init()
+    var start_cell = grid.random_cell()
+    
     Maze.recursiveBacktracker(grid, start_cell)
     grid.setStartCell(start_cell)
     

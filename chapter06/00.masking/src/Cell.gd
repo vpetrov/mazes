@@ -75,20 +75,20 @@ func linkString() -> String:
     return result
 
 # Returns a list of neighbours of this cell.
-func neighbours() -> Array:
+func neighbors() -> Array:
     var result = []
-    if north:
+    if north != null:
         result.append(north)
-    if south:
+    if south != null:
         result.append(south)
-    if east:
+    if east != null:
         result.append(east)
-    if west:
+    if west != null:
         result.append(west)
     return result
     
 func random_neighbor() -> Cell:
-    var neighbors := self.neighbours()
+    var neighbors := self.neighbors()
     if neighbors.empty():
         return null
         

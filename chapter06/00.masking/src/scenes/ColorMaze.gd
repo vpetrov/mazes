@@ -26,7 +26,6 @@ func onShowDeadEnds(show:bool) -> void:
 
 func changeGrid(grid:DistanceGrid) -> void:
     self.grid = grid
-    grid.setStartCell(grid.cell(0,0))
     colorTileMap.setGrid(grid)
     lineWalls.setGrid(grid)
     

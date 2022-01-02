@@ -7,17 +7,20 @@ var nrows := 0
 var dead_ends = null
 
 const cells := Array()
+var initialized = false
 
 func _init(rows:int, cols:int) -> void:
-    _allocate(rows, cols)
+    self.nrows = rows
+    self.ncols = cols
+    
+func init() -> void:
+    _allocate(nrows, ncols)
     _compute_neighbors()
     pass
 
 func _allocate(rows:int, cols:int) -> void:
     assert(rows > 0)
     assert(cols > 0)
-    nrows = rows
-    ncols = cols
 
     cells.resize(nrows)
     
@@ -29,9 +32,12 @@ func _allocate(rows:int, cols:int) -> void:
 
 # Populates the north/east/south/west neighbor references to Cells
 func _compute_neighbors() -> void:
+    print_debug("assigning grid neighbors")
     for row in range(nrows):
         for col in range(ncols):
             var cell = cell(row, col)
+            if cell == null:
+                continue
             cell.north = cell(row - 1, col)
             cell.south = cell(row + 1, col)
             cell.east = cell(row, col + 1)
@@ -48,10 +54,6 @@ func cell(row:int, col:int) -> Cell:
     if row < 0 || col < 0 || row >= nrows || col >= ncols:
         return null
     var result = cells[row][col]
-    # since the entire grid is made of cells, there should never be a case when
-    # an otherwise valid grid address results in a null cell
-    assert(result != null)
-    
     return result
     
 # Returns a random cell in the grid
@@ -59,33 +61,6 @@ func random_cell() -> Cell:
     var row = rand_range(0.0, nrows)
     var col = rand_range(0.0, ncols)
     return cell(row, col)
-    
-func neighbors(cell:Cell) -> Array:
-    var neighbors = []
-    
-    # north
-    if cell.row > 0:
-        neighbors.append(self.cell(cell.row - 1, cell.col))
-    # east
-    if cell.col < self.ncols - 1:
-        neighbors.append(self.cell(cell.row, cell.col + 1))
-    # south
-    if cell.row < self.nrows - 1:
-        neighbors.append(self.cell(cell.row + 1, cell.col))
-    # west
-    if cell.col > 0:
-        neighbors.append(self.cell(cell.row, cell.col - 1))
-        
-    return neighbors
-    
-    
-func random_neighbor(cell:Cell) -> Cell:
-    var neighbors = neighbors(cell)
-    if neighbors.empty():
-        return null
-        
-    var random_index := floor(rand_range(0, neighbors.size()))
-    return neighbors[random_index]
 
 # Clears the entire grid (does not populate neighbors or links)
 func clear() -> void:
@@ -96,7 +71,10 @@ func clear() -> void:
 func clearRow(row:int) -> void:
     assert(row < nrows)
     for col in range(ncols):
-        cells[row][col] = Cell.new(row, col, 0)
+        cells[row][col] = createCell(row, col, 0)
+        
+func createCell(row:int, col:int, value:int) -> Cell:
+    return Cell.new(row, col, value)
 
 func _to_string():
     for row in range(nrows):
@@ -112,6 +90,8 @@ func deadEnds() -> Array:
     for row in range(nrows):
         for col in range(ncols):
             var cell = cell(row, col)
+            if cell == null:
+                continue
             if cell.links().size() == 1:
                 dead_ends.append(cell)
     

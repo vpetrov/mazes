@@ -38,6 +38,16 @@ _global_script_classes=[ {
 "class": "LineWalls",
 "language": "GDScript",
 "path": "res://src/scenes/LineWalls.gd"
+}, {
+"base": "Node",
+"class": "Mask",
+"language": "GDScript",
+"path": "res://src/Mask.gd"
+}, {
+"base": "DistanceGrid",
+"class": "MaskedDistanceGrid",
+"language": "GDScript",
+"path": "res://src/MaskedDistanceGrid.gd"
 } ]
 _global_script_class_icons={
 "Cell": "",
@@ -45,7 +55,9 @@ _global_script_class_icons={
 "DistanceGrid": "",
 "Distances": "",
 "Grid": "",
-"LineWalls": ""
+"LineWalls": "",
+"Mask": "",
+"MaskedDistanceGrid": ""
 }
 
 [application]
@@ -58,6 +70,7 @@ config/icon="res://images/icon.png"
 
 Maze="*res://src/Maze.gd"
 Random="*res://src/Random.gd"
+MaskFactory="*res://src/MaskFactory.gd"
 
 [display]
 

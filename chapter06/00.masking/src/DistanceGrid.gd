@@ -14,8 +14,10 @@ func setStartCell(cell:Cell) -> void:
 
 # Runs Djikstra to compute the distance from 'start' to each cell in the grid
 func computeDistancesAt(start:Cell) -> Distances:
+    print_debug("computing distances from", start.row, start.col)
     var result = Distances.new(start)
     var queue = [start]
+    result.cells[start] = 0
     
     while !queue.empty():
         var cell = queue.pop_front()
@@ -55,7 +57,10 @@ func _to_string():
         var row_string = "["
         for col in range(ncols):
             var cell = self.cell(row, col)
-            row_string += cell.asString(str(distances.cells[cell]))
+            if cell == null:
+                row_string += "!"
+            else:
+                row_string += cell.asString(str(distances.cells[cell]))
             row_string += " "
         row_string += "]"
         print(row_string)

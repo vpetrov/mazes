@@ -46,7 +46,7 @@ func aldousBroder(grid:Grid, start_cell:Cell) -> void:
     var unvisited = grid.nrows * grid.ncols - 1
     
     while unvisited > 0:
-        var neighbors = cell.neighbours()
+        var neighbors = cell.neighbors()
         var random_index := rand_range(0, neighbors.size())
         var neighbor:Cell= neighbors[random_index]
         
@@ -74,7 +74,7 @@ func wilson(grid:Grid, start_cell:Cell) -> void:
         var path = [cell]
         
         while unvisited.has(cell):
-            cell = grid.random_neighbor(cell)
+            cell = cell.random_neighbor()
             
             # see if this random neighbor is already in the path
             var position = path.find(cell)
@@ -98,7 +98,7 @@ func huntKill(grid:Grid, start_cell:Cell) -> void:
     var cell = start_cell
     
     while cell != null:
-        var all_neighbors = grid.neighbors(cell)
+        var all_neighbors = cell.neighbors()
         var unvisited_neighbors = []
         
         # select unvisited neighbors
@@ -118,7 +118,7 @@ func huntKill(grid:Grid, start_cell:Cell) -> void:
                     if done:
                         break
                     var grid_cell = grid.cell(row, col)
-                    var all_neighbors2 = grid.neighbors(grid_cell)
+                    var all_neighbors2 = grid_cell.neighbors()
                     var visited_neighbors = []
                     
                     # remove neighbors without links
@@ -136,13 +136,13 @@ func huntKill(grid:Grid, start_cell:Cell) -> void:
             cell.link(neighbor)
             cell = neighbor
             
-func recursiveBacktracker(grid:Grid, start_cell:Cell) -> void:
+func recursiveBacktracker(grid:Grid, start_cell:Cell) -> void:    
     var stack = []
     stack.push_back(start_cell)
     
     while !stack.empty():
         var cell = stack.back()
-        var all_neighbors = grid.neighbors(cell)
+        var all_neighbors = cell.neighbors()
         
         var unvisited_neighbors = []
         for neighbor in all_neighbors:

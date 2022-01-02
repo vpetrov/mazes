@@ -28,6 +28,8 @@ func _draw() -> void:
 
 func draw_cell(row:int, col:int) -> void:
     var cell = grid.cell(row, col)
+    if cell == null:
+        return
     
     if row == 0:
         draw_north_wall(row, col, cell)
