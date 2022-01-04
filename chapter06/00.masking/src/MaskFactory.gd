@@ -29,4 +29,20 @@ func fromTextFile(filename:String) -> Mask:
 
     return mask
         
+func fromImage(filename:String, size:Vector2) -> Mask:
+    var image:Image = load(filename).get_data()
+    if size != null:
+        image.resize(size.x, size.y)
+        
+    image.lock()
+    var rows = image.get_height()
+    var cols = image.get_width()
+    var mask = Mask.new(rows, cols)
     
+    for row in range(mask.nrows):
+        for col in range(mask.ncols):
+            var pixel := image.get_pixel(col, row)
+            var is_on := !pixel.is_equal_approx(Color.black)
+            mask.set_value(row, col, is_on)
+            
+    return mask

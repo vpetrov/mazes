@@ -32,7 +32,6 @@ func _allocate(rows:int, cols:int) -> void:
 
 # Populates the north/east/south/west neighbor references to Cells
 func _compute_neighbors() -> void:
-    print_debug("assigning grid neighbors")
     for row in range(nrows):
         for col in range(ncols):
             var cell = cell(row, col)
@@ -96,3 +95,6 @@ func deadEnds() -> Array:
                 dead_ends.append(cell)
     
     return dead_ends
+
+func count() -> int:
+    return nrows * ncols

@@ -72,56 +72,73 @@ margin_right = 205.0
 margin_bottom = 19.0
 text = "Size:"
 
-[node name="RowsTextEdit" type="TextEdit" parent="PanelContainer/MarginContainer/HBoxContainer"]
+[node name="ColumnsTextEdit" type="TextEdit" parent="PanelContainer/MarginContainer/HBoxContainer"]
 margin_left = 209.0
-margin_right = 239.0
+margin_right = 249.0
 margin_bottom = 24.0
-rect_min_size = Vector2( 30, 0 )
+rect_min_size = Vector2( 40, 0 )
 text = "16"
 
 [node name="x" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
-margin_left = 243.0
+margin_left = 253.0
 margin_top = 5.0
-margin_right = 250.0
+margin_right = 260.0
 margin_bottom = 19.0
 text = "x"
 
-[node name="ColumnsTextEdit" type="TextEdit" parent="PanelContainer/MarginContainer/HBoxContainer"]
-margin_left = 254.0
-margin_right = 284.0
+[node name="RowsTextEdit" type="TextEdit" parent="PanelContainer/MarginContainer/HBoxContainer"]
+margin_left = 264.0
+margin_right = 304.0
 margin_bottom = 24.0
-rect_min_size = Vector2( 30, 0 )
+rect_min_size = Vector2( 40, 0 )
 text = "16"
 
 [node name="NewMazeButton" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer"]
-margin_left = 288.0
-margin_right = 366.0
+margin_left = 308.0
+margin_right = 348.0
 margin_bottom = 24.0
-text = "New Maze"
+text = "New"
+
+[node name="VSeparator3" type="VSeparator" parent="PanelContainer/MarginContainer/HBoxContainer"]
+margin_left = 352.0
+margin_right = 356.0
+margin_bottom = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewMaskedMazeButton" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer"]
+margin_left = 360.0
+margin_right = 421.0
+margin_bottom = 24.0
+text = "Masked"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/HBoxContainer"]
-margin_left = 370.0
-margin_right = 374.0
+margin_left = 425.0
+margin_right = 429.0
 margin_bottom = 24.0
 
 [node name="DistancesCheckbox" type="CheckBox" parent="PanelContainer/MarginContainer/HBoxContainer"]
-margin_left = 378.0
-margin_right = 469.0
+margin_left = 433.0
+margin_right = 524.0
 margin_bottom = 24.0
 text = "Distances"
 
 [node name="VSeparator2" type="VSeparator" parent="PanelContainer/MarginContainer/HBoxContainer"]
-margin_left = 473.0
-margin_right = 477.0
+margin_left = 528.0
+margin_right = 532.0
 margin_bottom = 24.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="DeadEndsLabel" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
-margin_left = 481.0
+margin_left = 536.0
 margin_top = 5.0
-margin_right = 565.0
+margin_right = 620.0
 margin_bottom = 19.0
 text = "Dead ends: 0"
 __meta__ = {
@@ -129,13 +146,25 @@ __meta__ = {
 }
 
 [node name="DeadEndsCheckbox" type="CheckBox" parent="PanelContainer/MarginContainer/HBoxContainer"]
-margin_left = 569.0
-margin_right = 630.0
+margin_left = 624.0
+margin_right = 685.0
 margin_bottom = 24.0
 text = "Show"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="MaskPopupPanel" type="PopupPanel" parent="PanelContainer/MarginContainer/HBoxContainer"]
+margin_right = 8.0
+margin_bottom = 8.0
+
+[node name="MaskGrid" type="GridContainer" parent="PanelContainer/MarginContainer/HBoxContainer/MaskPopupPanel"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 4.0
+margin_bottom = 4.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
 margin_top = 52.0
@@ -156,5 +185,6 @@ render_target_update_mode = 3
 [connection signal="item_selected" from="PanelContainer/MarginContainer/HBoxContainer/ViewSelect" to="." method="_on_MazeSelect_item_selected"]
 [connection signal="item_selected" from="PanelContainer/MarginContainer/HBoxContainer/AlgorithmSelect" to="." method="_on_AlgorithmSelect_item_selected"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/NewMazeButton" to="." method="_on_NewMazeButton_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/NewMaskedMazeButton" to="." method="_on_NewMaskedMaze_pressed"]
 [connection signal="toggled" from="PanelContainer/MarginContainer/HBoxContainer/DistancesCheckbox" to="." method="_on_DistancesCheckbox_toggled"]
 [connection signal="toggled" from="PanelContainer/MarginContainer/HBoxContainer/DeadEndsCheckbox" to="." method="_on_DeadEndsCheckbox_toggled"]

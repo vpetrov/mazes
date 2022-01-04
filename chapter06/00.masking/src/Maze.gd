@@ -137,22 +137,52 @@ func huntKill(grid:Grid, start_cell:Cell) -> void:
             cell = neighbor
             
 func recursiveBacktracker(grid:Grid, start_cell:Cell) -> void:    
-    var stack = []
-    stack.push_back(start_cell)
+    var count := 0
+    var grid_count := grid.count()
     
-    while !stack.empty():
-        var cell = stack.back()
-        var all_neighbors = cell.neighbors()
-        
-        var unvisited_neighbors = []
-        for neighbor in all_neighbors:
-            if neighbor.links().empty():
-                unvisited_neighbors.append(neighbor)
+    # repeat recursive backtracker for all regions of the maze (in case there are totally disconnected
+    # islands
+    while count != grid_count:
+        var stack = []
+        stack.push_back(start_cell)
         
         
-        if unvisited_neighbors.empty():
-            stack.pop_back()
-        else:
-            var unvisited_neighbor = Random.element(unvisited_neighbors)
-            cell.link(unvisited_neighbor)
-            stack.push_back(unvisited_neighbor)
+        while !stack.empty():
+            var cell = stack.back()
+            var all_neighbors = cell.neighbors()
+            
+            var unvisited_neighbors = []
+            for neighbor in all_neighbors:
+                if neighbor.links().empty():
+                    unvisited_neighbors.append(neighbor)
+            
+            if unvisited_neighbors.empty():
+                stack.pop_back()
+                count += 1
+            else:
+                var unvisited_neighbor = Random.element(unvisited_neighbors)
+                cell.link(unvisited_neighbor)
+                stack.push_back(unvisited_neighbor)
+
+        # if we haven't walked the entire grid, try again from another unvisited point
+        if count != grid_count:
+            start_cell = null
+            var done := false
+            # find the next start point  
+            for row in range(grid.nrows):
+                if done:
+                    break
+                for col in range(grid.ncols):
+                    if done:
+                        break
+                    var cell = grid.cell(row, col)
+                    if cell == null:
+                        continue
+                    
+                    if cell.links().empty():
+                        start_cell = cell
+                        done = true
+                        
+            # presumably we hadn't processed the entire grid, so we had to find a cell above
+            assert(start_cell != null)
+                

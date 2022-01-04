@@ -2,9 +2,9 @@ extends Node2D
 
 class_name LineWalls
 
-export var tile_size := Vector2(64,64)
+export var tile_size := Vector2(4,4)
 export var color := Color(0,0,0)
-export var width := 3.0
+export var width := 0.25
 var grid:Grid = null
 
 # Called when the node enters the scene tree for the first time.
@@ -13,6 +13,8 @@ func _ready() -> void:
 
 func setGrid(grid:Grid) -> void:
     self.grid = grid
+    var visibleArea = get_viewport_rect().size
+    tile_size = Vector2(visibleArea.x / grid.ncols, visibleArea.y / grid.nrows)
     update()
 
 func _draw() -> void:

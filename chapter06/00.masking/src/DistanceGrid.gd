@@ -10,28 +10,27 @@ func _init(rows:int, cols:int).(rows, cols) -> void:
 
 func setStartCell(cell:Cell) -> void:
     start = cell
-    distances = computeDistancesAt(cell)
+    distances = Distances.new(start)
+    computeDistancesAt(start, distances)
 
 # Runs Djikstra to compute the distance from 'start' to each cell in the grid
-func computeDistancesAt(start:Cell) -> Distances:
-    print_debug("computing distances from", start.row, start.col)
-    var result = Distances.new(start)
+func computeDistancesAt(start:Cell, distances:Distances):
     var queue = [start]
-    result.cells[start] = 0
+    distances.cells[start] = 0
     
     while !queue.empty():
         var cell = queue.pop_front()
-        var current_distance = result.cells[cell]
+        if cell == null:
+            continue
+        var current_distance = distances.cells[cell]
         
         for linked_cell in cell.links():
             # skip linked cells we already looked at
-            if linked_cell in result.cells:
+            if linked_cell in distances.cells:
                 continue
             
-            result.cells[linked_cell] = current_distance + 1
+            distances.cells[linked_cell] = current_distance + 1
             queue.push_back(linked_cell)
-    
-    return result
     
 
 func pathTo(goal:Cell) -> Distances:

@@ -2,7 +2,7 @@ extends Node2D
 
 class_name ColorTileMap
 
-export var tile_size := Vector2(64,64)
+export var tile_size := Vector2(4,4)
 export var show_dead_ends := false
 
 var distanceGrid:DistanceGrid = null
@@ -10,6 +10,8 @@ var maxDistance:int = 0
 
 func setGrid(distanceGrid:DistanceGrid) -> void:
     self.distanceGrid = distanceGrid
+    var visibleArea = get_viewport_rect().size
+    tile_size = Vector2(visibleArea.x / distanceGrid.ncols, visibleArea.y / distanceGrid.nrows)
 
     var farthestCell = distanceGrid.distances.farthest()
     maxDistance = distanceGrid.distances.cells[farthestCell]
@@ -17,8 +19,8 @@ func setGrid(distanceGrid:DistanceGrid) -> void:
     
 func colorAt(row:int, col:int) -> Color:
     var cell = distanceGrid.cell(row, col)
-    if !distanceGrid.distances.cells.has(cell):
-        return Color.blue
+    if !distanceGrid.distances.cells.has(cell) || maxDistance <= 0:
+        return Color.black
     if show_dead_ends && distanceGrid.deadEnds().has(cell):
         return Color(0.9, 0.9, 0.9)
     var distance:float= distanceGrid.distances.cells[cell]

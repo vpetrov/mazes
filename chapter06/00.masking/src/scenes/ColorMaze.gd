@@ -12,6 +12,10 @@ func _ready() -> void:
         
 func _input(event) -> void:
     if event is InputEventMouseButton and event.is_pressed():
+        # dont react to input events outside of this component
+        if event.position.x < position.x || event.position.y < position.y:
+            return
+        print("ColorMaze received click", event.position, position)
         var gridCoordinates = positionToCellCoord(event.position)
         var col = gridCoordinates.x
         var row = gridCoordinates.y
