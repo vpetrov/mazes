@@ -1,0 +1,237 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/scenes/MazeSelector.gd" type="Script" id=1]
+
+[node name="HUD" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 48.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 41.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 1005.0
+margin_bottom = 29.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MazeTypeLabel" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
+margin_top = 5.0
+margin_right = 34.0
+margin_bottom = 19.0
+text = "Type:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MazeTypeSelect" type="OptionButton" parent="PanelContainer/MarginContainer/HBoxContainer"]
+margin_left = 38.0
+margin_right = 67.0
+margin_bottom = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewMazeButton" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer"]
+margin_left = 71.0
+margin_right = 111.0
+margin_bottom = 24.0
+text = "New"
+
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/HBoxContainer"]
+margin_left = 115.0
+margin_right = 119.0
+margin_bottom = 24.0
+
+[node name="GridMazeGroup" type="HBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
+margin_left = 123.0
+margin_right = 748.0
+margin_bottom = 24.0
+
+[node name="ViewLabel" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup"]
+margin_top = 5.0
+margin_right = 34.0
+margin_bottom = 19.0
+text = "View:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ViewSelect" type="OptionButton" parent="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup"]
+margin_left = 38.0
+margin_right = 67.0
+margin_bottom = 24.0
+
+[node name="AlgorithmLabel" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup"]
+margin_left = 71.0
+margin_top = 5.0
+margin_right = 138.0
+margin_bottom = 19.0
+text = "Algorithm:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AlgorithmSelect" type="OptionButton" parent="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup"]
+margin_left = 142.0
+margin_right = 171.0
+margin_bottom = 24.0
+
+[node name="SizeLabel" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup"]
+margin_left = 175.0
+margin_top = 5.0
+margin_right = 205.0
+margin_bottom = 19.0
+text = "Size:"
+
+[node name="ColumnsTextEdit" type="TextEdit" parent="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup"]
+margin_left = 209.0
+margin_right = 249.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 40, 0 )
+text = "16"
+
+[node name="x" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup"]
+margin_left = 253.0
+margin_top = 5.0
+margin_right = 260.0
+margin_bottom = 19.0
+text = "x"
+
+[node name="RowsTextEdit" type="TextEdit" parent="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup"]
+margin_left = 264.0
+margin_right = 304.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 40, 0 )
+text = "16"
+
+[node name="VSeparator3" type="VSeparator" parent="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup"]
+margin_left = 308.0
+margin_right = 312.0
+margin_bottom = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewMaskedMazeButton" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup"]
+margin_left = 316.0
+margin_right = 361.0
+margin_bottom = 24.0
+text = "Mask"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup"]
+margin_left = 365.0
+margin_right = 369.0
+margin_bottom = 24.0
+
+[node name="DistancesCheckbox" type="CheckBox" parent="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup"]
+margin_left = 373.0
+margin_right = 464.0
+margin_bottom = 24.0
+text = "Distances"
+
+[node name="VSeparator2" type="VSeparator" parent="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup"]
+margin_left = 468.0
+margin_right = 472.0
+margin_bottom = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DeadEndsLabel" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup"]
+margin_left = 476.0
+margin_top = 5.0
+margin_right = 560.0
+margin_bottom = 19.0
+text = "Dead ends: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DeadEndsCheckbox" type="CheckBox" parent="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup"]
+margin_left = 564.0
+margin_right = 625.0
+margin_bottom = 24.0
+text = "Show"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MaskPopupPanel" type="PopupPanel" parent="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup"]
+margin_left = -71.0
+margin_right = -63.0
+margin_bottom = 8.0
+
+[node name="MaskGrid" type="GridContainer" parent="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup/MaskPopupPanel"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 4.0
+margin_bottom = 4.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="PolarMazeGroup" type="HBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
+visible = false
+margin_left = 752.0
+margin_right = 823.0
+margin_bottom = 24.0
+
+[node name="PolarRowsLabel" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/PolarMazeGroup"]
+margin_top = 5.0
+margin_right = 37.0
+margin_bottom = 19.0
+text = "Rows:"
+
+[node name="PolarRowsTextEdit" type="TextEdit" parent="PanelContainer/MarginContainer/HBoxContainer/PolarMazeGroup"]
+margin_left = 41.0
+margin_right = 71.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 30, 0 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+margin_top = 52.0
+margin_right = 1024.0
+margin_bottom = 1076.0
+rect_min_size = Vector2( 1024, 1024 )
+input_pass_on_modal_close_click = false
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 1024, 1024 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[connection signal="item_selected" from="PanelContainer/MarginContainer/HBoxContainer/MazeTypeSelect" to="." method="_on_MazeTypeSelect_item_selected"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/NewMazeButton" to="." method="_on_NewMazeButton_pressed"]
+[connection signal="item_selected" from="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup/ViewSelect" to="." method="_on_MazeSelect_item_selected"]
+[connection signal="item_selected" from="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup/AlgorithmSelect" to="." method="_on_AlgorithmSelect_item_selected"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup/NewMaskedMazeButton" to="." method="_on_NewMaskedMaze_pressed"]
+[connection signal="toggled" from="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup/DistancesCheckbox" to="." method="_on_DistancesCheckbox_toggled"]
+[connection signal="toggled" from="PanelContainer/MarginContainer/HBoxContainer/GridMazeGroup/DeadEndsCheckbox" to="." method="_on_DeadEndsCheckbox_toggled"]
